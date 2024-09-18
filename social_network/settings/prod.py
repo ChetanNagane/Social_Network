@@ -1,7 +1,7 @@
 from social_network.settings.common import *
 
 DEBUG = False
-print(DEBUG)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
