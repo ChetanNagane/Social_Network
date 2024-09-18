@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  nginx:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./config/nginx/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - app-volume:/app
+    depends_on:
+      web:
+        condition: service_started
+
+  web:
+    container_name: web
+    build:
+      context: .
+    environment:
+      - ENVIRONMENT=prod
+    volumes:
+      - app-volume:/app
+    expose:
+      - 8000
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - redis
+      - postgres
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    expose:
+      - 5432
+    ports:
+      - "5430:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: social_network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  app-volume:
+  postgres-data:
