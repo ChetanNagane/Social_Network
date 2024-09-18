@@ -103,21 +103,23 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-8. **Populate Dummy Data**
+### 8. Populate Dummy Data
 
-   To add users and establish friendships between them, run the following commands:
+To add users and establish friendships between them, run the following commands:
 
-    - Add 50,000 users(from \`sample_users.csv\`):
-      ```bash
-      python manage.py add_users
-      ```
+- Add 50,000 users(from \`sample_users.csv\`):
 
-    - Establish friendships between users (this command can be run multiple times to connect more users):
-      ```bash
-      python manage.py add_friendships
-      ```
+```bash
+python manage.py add_users
+```
 
-   These commands will help you populate the database with dummy data for testing purposes.
+- Establish friendships between users (this command can be run multiple times to connect more users):
+
+```bash
+python manage.py add_friendships
+```
+
+These commands will help you populate the database with dummy data for testing purposes.
 
 ---
 
